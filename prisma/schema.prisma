@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Campaign {
+  id             String      @id @default(uuid())
+  name           String
+  subject        String
+  body           String      // Supports markdown or text with templates like {{name}}
+  attachmentPath String?     // Local path where the uploaded PDF resume is saved
+  status         String      @default("DRAFT") // DRAFT, QUEUED, SENDING, COMPLETED, PAUSED
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  recipients     Recipient[]
+}
+
+model Recipient {
+  id         String     @id @default(uuid())
+  campaignId String
+  campaign   Campaign   @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  name       String
+  email      String
+  company    String
+  
+  // Track specific recipient status
+  status     String     @default("PENDING") // PENDING, SENT, FAILED, BOUNCED, REPLIED
+  
+  sentAt     DateTime?
+  logs       EmailLog[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  @@index([email])
+}
+
+model EmailLog {
+  id           String    @id @default(uuid())
+  recipientId  String
+  recipient    Recipient @relation(fields: [recipientId], references: [id], onDelete: Cascade)
+  messageId    String?   // The unique ID returned by SMTP provider
+  status       String    // SUCCESS or FAILURE
+  smtpResponse String?   // Raw server feedback (e.g., "250 OK" or error logs)
+  error        String?   // Readable parsing error if it failed
+  retryCount   Int       @default(0)
+  createdAt    DateTime  @default(now())
+}
