@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Recipient } from "@prisma/client";
 import { notFound } from "next/navigation";
 import {
   ArrowLeft,
@@ -12,6 +13,7 @@ import {
 } from "lucide-react";
 
 import { prisma } from "@/lib/prisma";
+
 
 import { Button } from "@/components/ui/button";
 import {
@@ -41,17 +43,17 @@ export default async function CampaignDetailsPage({
     notFound();
   }
 
-  const sent = campaign.recipients.filter(
-    (r) => r.status === "SENT"
-  ).length;
+ const sent = campaign.recipients.filter(
+  (r: Recipient) => r.status === "SENT"
+).length;
 
-  const failed = campaign.recipients.filter(
-    (r) => r.status === "FAILED"
-  ).length;
+const failed = campaign.recipients.filter(
+  (r: Recipient) => r.status === "FAILED"
+).length;
 
-  const replied = campaign.recipients.filter(
-    (r) => r.status === "REPLIED"
-  ).length;
+const replied = campaign.recipients.filter(
+  (r: Recipient) => r.status === "REPLIED"
+).length;
 
   return (
     <main className="min-h-screen bg-[var(--background)]">
