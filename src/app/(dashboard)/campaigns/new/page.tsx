@@ -37,6 +37,7 @@ Ritesh More`,
   const [loading, setLoading] = useState(false);
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const [personalization, setPersonalization] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -178,37 +179,61 @@ Ritesh More`,
 
             </div>
 
-            {/* Preview */}
+            {/* Live Preview */}
 
-            <div className="space-y-4">
+<div className="border-t border-[var(--border)] pt-8">
 
-              <h2 className="text-xl font-semibold">
-                Live Preview
-              </h2>
+  <button
+    type="button"
+    onClick={() => setPreviewOpen(!previewOpen)}
+    className="flex w-full items-center justify-between"
+  >
 
-              <div
-                className="
-                  rounded-2xl
-                  border
-                  border-[var(--border)]
-                  bg-[var(--secondary)]
-                  p-8
-                  whitespace-pre-wrap
-                  leading-8
-                  min-h-[220px]
-                "
-              >
-                {campaign.body ? (
-                  campaign.body
-                ) : (
-                  <span className="text-[var(--muted-foreground)]">
-                    Your email preview will appear here...
-                  </span>
-                )}
-              </div>
+    <h2 className="text-xl font-semibold">
+      Live Preview
+    </h2>
 
-            </div>
+    {previewOpen ? (
+      <ChevronUp />
+    ) : (
+      <ChevronDown />
+    )}
 
+  </button>
+
+
+  {previewOpen && (
+
+    <div className="mt-6">
+
+      <div
+        className="
+          rounded-2xl
+          border
+          border-[var(--border)]
+          bg-[var(--secondary)]
+          p-8
+          whitespace-pre-wrap
+          leading-8
+          min-h-[220px]
+        "
+      >
+
+        {campaign.body ? (
+          campaign.body
+        ) : (
+          <span className="text-[var(--muted-foreground)]">
+            Your email preview will appear here...
+          </span>
+        )}
+
+      </div>
+
+    </div>
+
+  )}
+
+</div>
             {/* Advanced */}
 
             <div className="border-t border-[var(--border)] pt-8">

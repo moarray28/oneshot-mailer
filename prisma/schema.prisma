@@ -51,3 +51,18 @@ model EmailLog {
   retryCount   Int       @default(0)
   createdAt    DateTime  @default(now())
 }
+model MailAccount {
+  id           String   @id @default(uuid())
+
+  email        String   @unique
+
+  accessToken  String
+
+  refreshToken String
+
+  expiryDate   DateTime?
+
+  createdAt    DateTime @default(now())
+
+  updatedAt    DateTime @updatedAt
+}
