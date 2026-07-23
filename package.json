@@ -6,9 +6,8 @@
     "dev": "next dev",
     "start": "next start",
     "lint": "eslint",
-  "build": "prisma generate && next build",
-  "postinstall": "prisma generate"
-
+    "build": "prisma generate && next build",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -19,6 +18,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.4.0",
+    "googleapis": "^173.0.0",
     "lucide-react": "^1.25.0",
     "next": "16.2.10",
     "nodemailer": "^9.0.3",
@@ -38,6 +38,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/nodemailer": "^8.0.1",
     "@types/pg": "^8.20.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",

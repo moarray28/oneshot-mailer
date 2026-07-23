@@ -61,12 +61,19 @@ export default async function DashboardPage() {
             </p>
           </div>
 
-          <Link href="/campaigns/new">
-            <Button className="h-12 rounded-xl px-7">
-              + New Campaign
-            </Button>
-          </Link>
+          <div className="flex gap-3">
+  <Link href="/settings">
+    <Button variant="outline" className="h-12 rounded-xl px-7">
+      Settings
+    </Button>
+  </Link>
 
+  <Link href="/campaigns/new">
+    <Button className="h-12 rounded-xl px-7">
+      + New Campaign
+    </Button>
+  </Link>
+</div>
         </div>
 
         {/* Stats */}
